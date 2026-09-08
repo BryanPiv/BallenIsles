@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BallenIsles Operations Portal</title>
+
+<style>
+:root{
+  --navy:#0f2742;
+  --navy2:#173b63;
+  --gold:#c7a35a;
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --text:#1c2733;
+  --muted:#6f7a86;
+  --border:#dde3e9;
+  --good:#247a51;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header{
+  height:74px;
+  background:var(--navy);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 28px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.logo{
+  width:38px;
+  height:38px;
+  border:2px solid var(--gold);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-weight:bold;
+  color:var(--gold);
+}
+
+.brand h1{
+  font-size:20px;
+  margin:0;
+}
+
+.brand small{
+  display:block;
+  color:#c9d4df;
+}
+
+.user{
+  font-size:14px;
+  color:#dfe7ee;
+}
+
+.shell{
+  display:grid;
+  grid-template-columns:230px 1fr;
+  min-height:calc(100vh - 74px);
+}
+
+aside{
+  background:white;
+  border-right:1px solid var(--border);
+  padding:22px 14px;
+}
+
+.nav-item{
+  padding:12px 14px;
+  border-radius:8px;
+  margin-bottom:7px;
+  cursor:pointer;
+  color:#324252;
+  font-weight:600;
+}
+
+.nav-item:hover,
+.nav-item.active{
+  background:#eef3f8;
+  color:var(--navy2);
+}
+
+main{
+  padding:28px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+h2{
+  margin:0;
+  font-size:26px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.searchbar{
+  position:relative;
+  max-width:720px;
+  margin-top:20px;
+}
+
+.searchbar input{
+  width:100%;
+  padding:14px 16px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:15px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-top:22px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px;
+}
+
+.metric .value{
+  font-size:30px;
+  font-weight:700;
+  color:var(--navy);
+}
+
+.metric .label{
+  margin-top:6px;
+  color:var(--muted);
+}
+
+.section-title{
+  font-size:17px;
+  margin:26px 0 12px;
+}
+
+.results{
+  margin-top:14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.result{
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+}
+
+.result:hover{
+  background:#f7f9fb;
+}
+
+.result-title{
+  font-weight:700;
+  color:var(--navy2);
+}
+
+.activity{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:20px;
+  background:#e8f4ee;
+  color:var(--good);
+  font-size:12px;
+  font-weight:bold;
+}
+
+.back{
+  cursor:pointer;
+  color:var(--navy2);
+  font-weight:bold;
+  margin-bottom:16px;
+  display:inline-block;
+}
+
+.info{
+  margin-top:10px;
+  padding:12px;
+  background:#f8fafc;
+  border:1px solid var(--border);
+  border-radius:8px;
+}
+
+textarea{
+  width:100%;
+  height:90px;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  margin-top:10px;
+}
+
+button{
+  background:var(--navy2);
+  color:white;
+  border:0;
+  padding:10px 15px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:8px;
+}
+
+@media(max-width:800px){
+  .shell{grid-template-columns:1fr}
+  aside{display:none}
+  .grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="brand">
+
+<div class="logo">
+BI
+</div>
+
+<div>
+<h1>BallenIsles Operations Portal</h1>
+<small>Property & Resident Management</small>
+</div>
+
+</div>
+
+<div class="user">
+Signed in as: Demo User
+</div>
+
+</header>
+
+
+<div class="shell">
+
+<aside>
+
+<div class="nav-item active" onclick="showPage('dashboard')">
+Dashboard
+</div>
+
+<div class="nav-item" onclick="showPage('properties')">
+Properties
+</div>
+
+<div class="nav-item" onclick="showPage('residents')">
+Residents
+</div>
+
+<div class="nav-item" onclick="showPage('communities')">
+Communities
+</div>
+
+<div class="nav-item" onclick="showPage('activity')">
+Activity
+</div>
+
+</aside>
+
+
+<main>
+
+
+<section id="dashboard" class="page active">
+
+<h2>Operations Dashboard</h2>
+
+<div class="muted">
+BallenIsles property and resident management
+</div>
+
+<div class="searchbar">
+
+<input
+id="globalSearch"
+placeholder="🔎 Search resident, property or community..."
+oninput="searchPortal()">
+
+</div>
+
+<div id="searchResults"></div>
+
+
+<div class="grid">
+
+<div class="card metric">
+<div class="value">1,600</div>
+<div class="label">Properties</div>
+</div>
+
+<div class="card metric">
+<div class="value">2,420</div>
+<div class="label">Residents</div>
+</div>
+
+<div class="card metric">
+<div class="value">33</div>
+<div class="label">Communities</div>
+</div>
+
+<div class="card metric">
+<div class="value">14</div>
+<div class="label">Records Updated Today</div>
+</div>
+
+</div>
+
+
+<div class="section-title">
+<strong>Recent Activity</strong>
+</div>
+
+<div class="card">
+
+<div class="activity">
+<strong>227 Coral Cay</strong>
+<div class="muted">Property note added — September 8, 2026</div>
+</div>
+
+<div class="activity">
+<strong>418 Bermuda Bay</strong>
+<div class="muted">Resident information updated — September 7, 2026</div>
+</div>
+
+<div class="activity">
+<strong>91 Sunset Bay</strong>
+<div class="muted">Occupancy confirmed — September 6, 2026</div>
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="properties" class="page">
+
+<h2>Properties</h2>
+
+<div class="muted">
+BallenIsles property directory
+</div>
+
+<div id="propertyList"></div>
+
+</section>
+
+
+
+<section id="residents" class="page">
+
+<h2>Residents</h2>
+
+<div class="muted">
+Resident directory
+</div>
+
+<div id="residentList"></div>
+
+</section>
+
+
+
+<section id="communities" class="page">
+
+<h2>Communities</h2>
+
+<div class="grid">
+
+<div class="card">
+<strong>Coral Cay</strong>
+<p>58 Properties</p>
+</div>
+
+<div class="card">
+<strong>Bermuda Bay</strong>
+<p>74 Properties</p>
+</div>
+
+<div class="card">
+<strong>Sunset Bay</strong>
+<p>63 Properties</p>
+</div>
+
+<div class="card">
+<strong>Grand Palm</strong>
+<p>51 Properties</p>
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="activity" class="page">
+
+<h2>Activity History</h2>
+
+<div class="card" style="margin-top:20px">
+
+<div class="activity">
+<strong>227 Coral Cay</strong>
+<div class="muted">Property note added</div>
+</div>
+
+<div class="activity">
+<strong>418 Bermuda Bay</strong>
+<div class="muted">Resident information updated</div>
+</div>
+
+<div class="activity">
+<strong>91 Sunset Bay</strong>
+<div class="muted">Occupancy status confirmed</div>
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="propertyProfile" class="page">
+
+<div class="back" onclick="showPage('properties')">
+← Back to Properties
+</div>
+
+<div id="propertyContent"></div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+const properties = [
+
+{
+id:1,
+address:"227 Coral Cay",
+community:"Coral Cay",
+resident:"John Katz",
+email:"john.katz@example.com",
+phone:"(561) 555-0147",
+occupancy:"Owner Occupied"
+},
+
+{
+id:2,
+address:"418 Bermuda Bay",
+community:"Bermuda Bay",
+resident:"Michael Rosen",
+email:"michael.rosen@example.com",
+phone:"(561) 555-0210",
+occupancy:"Owner Occupied"
+},
+
+{
+id:3,
+address:"91 Sunset Bay",
+community:"Sunset Bay",
+resident:"Susan Miller",
+email:"susan.miller@example.com",
+phone:"(561) 555-0344",
+occupancy:"Seasonal"
+},
+
+{
+id:4,
+address:"152 Grand Palm",
+community:"Grand Palm",
+resident:"Robert Allen",
+email:"robert.allen@example.com",
+phone:"(561) 555-0441",
+occupancy:"Owner Occupied"
+}
+
+];
+
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+}
+
+
+function renderProperties(){
+
+let html='<div class="results">';
+
+properties.forEach(p=>{
+
+html+=`
+
+<div class="result" onclick="openProperty(${p.id})">
+
+<div class="result-title">
+${p.address}
+</div>
+
+<div class="muted">
+${p.community} · ${p.resident}
+</div>
+
+</div>
+
+`;
+
+});
+
+html+='</div>';
+
+document.getElementById("propertyList").innerHTML=html;
+
+}
+
+
+function renderResidents(){
+
+let html='<div class="results">';
+
+properties.forEach(p=>{
+
+html+=`
+
+<div class="result" onclick="openProperty(${p.id})">
+
+<div class="result-title">
+${p.resident}
+</div>
+
+<div class="muted">
+${p.address} · ${p.email}
+</div>
+
+</div>
+
+`;
+
+});
+
+html+='</div>';
+
+document.getElementById("residentList").innerHTML=html;
+
+}
+
+
+function openProperty(id){
+
+const p=properties.find(x=>x.id===id);
+
+document.getElementById("propertyContent").innerHTML=`
+
+<h2>${p.address}</h2>
+
+<p class="muted">
+${p.community}
+</p>
+
+<span class="badge">
+Active Property
+</span>
+
+
+<div class="card" style="margin-top:20px">
+
+<h3>Property Information</h3>
+
+<div class="info">
+<strong>Community</strong><br>
+${p.community}
+</div>
+
+<div class="info">
+<strong>Occupancy</strong><br>
+${p.occupancy}
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:18px">
+
+<h3>Primary Resident</h3>
+
+<div class="info">
+<strong>${p.resident}</strong><br><br>
+
+Email: ${p.email}<br>
+
+Phone: ${p.phone}
+
+</div>
+
+</div>
+
+
+<div class="card" style="margin-top:18px">
+
+<h3>Internal Property Notes</h3>
+
+<div id="notes"></div>
+
+<textarea
+id="noteText"
+placeholder="Enter internal property note...">
+</textarea>
+
+<button onclick="addNote()">
+Add Note
+</button>
+
+</div>
+
+`;
+
+showPage("propertyProfile");
+
+}
+
+
+function addNote(){
+
+const note=document.getElementById("noteText").value;
+
+if(!note.trim()) return;
+
+const notes=document.getElementById("notes");
+
+notes.innerHTML+=`
+
+<div class="info">
+<strong>September 8, 2026</strong><br>
+${note}
+<br>
+<span class="muted">Added by Demo User</span>
+</div>
+
+`;
+
+document.getElementById("noteText").value="";
+
+}
+
+
+function searchPortal(){
+
+const q=document
+.getElementById("globalSearch")
+.value
+.toLowerCase();
+
+const box=document.getElementById("searchResults");
+
+if(!q){
+
+box.innerHTML="";
+return;
+
+}
+
+const results=properties.filter(p=>
+
+p.address.toLowerCase().includes(q) ||
+
+p.community.toLowerCase().includes(q) ||
+
+p.resident.toLowerCase().includes(q)
+
+);
+
+
+let html='<div class="results">';
+
+if(results.length===0){
+
+html+=`
+<div class="result">
+No records found
+</div>
+`;
+
+}
+
+results.forEach(p=>{
+
+html+=`
+
+<div class="result" onclick="openProperty(${p.id})">
+
+<div class="result-title">
+${p.address}
+</div>
+
+<div class="muted">
+${p.resident} · ${p.community}
+</div>
+
+</div>
+
+`;
+
+});
+
+html+='</div>';
+
+box.innerHTML=html;
+
+}
+
+
+renderProperties();
+
+renderResidents();
+
+</script>
+
+
+</body>
+</html>
