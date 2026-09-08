@@ -763,6 +763,307 @@ renderResidents();
 
 </script>
 
+<!-- BallenIsles AI Assistant -->
+<div id="aiChatButton" onclick="toggleChat()">💬</div>
 
+<div id="aiChatWindow">
+  <div id="aiChatHeader">
+    <div>
+      <strong>BallenIsles Assistant</strong>
+      <div class="chat-subtitle">Homeowner Assistance</div>
+    </div>
+
+    <span onclick="toggleChat()" style="cursor:pointer;">✕</span>
+  </div>
+
+  <div id="aiMessages">
+
+    <div class="bot-message">
+      Hello! I'm the BallenIsles Homeowner Assistant.
+      How can I help you today?
+    </div>
+
+  </div>
+
+  <div id="aiInputArea">
+
+    <input
+      id="aiInput"
+      type="text"
+      placeholder="Ask a question..."
+      onkeydown="if(event.key === 'Enter') sendMessage()"
+    >
+
+    <button onclick="sendMessage()">Send</button>
+
+  </div>
+</div>
+
+<style>
+
+#aiChatButton {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 58px;
+  height: 58px;
+  background: #173b63;
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(0,0,0,.25);
+  z-index: 9999;
+}
+
+#aiChatButton:hover {
+  background: #0f2742;
+}
+
+#aiChatWindow {
+  position: fixed;
+  right: 25px;
+  bottom: 95px;
+
+  width: 370px;
+  height: 520px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  box-shadow: 0 8px 30px rgba(0,0,0,.25);
+
+  display: none;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  z-index: 9999;
+}
+
+#aiChatHeader {
+  background: #0f2742;
+  color: white;
+
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-subtitle {
+  font-size: 12px;
+  color: #c9d4df;
+  margin-top: 3px;
+}
+
+#aiMessages {
+  flex: 1;
+
+  padding: 15px;
+
+  overflow-y: auto;
+
+  background: #f4f6f8;
+}
+
+.bot-message,
+.user-message {
+  padding: 11px 13px;
+
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+
+  max-width: 85%;
+
+  line-height: 1.4;
+
+  font-size: 14px;
+}
+
+.bot-message {
+  background: white;
+  border: 1px solid #dde3e9;
+}
+
+.user-message {
+  background: #173b63;
+
+  color: white;
+
+  margin-left: auto;
+}
+
+#aiInputArea {
+  border-top: 1px solid #dde3e9;
+
+  padding: 10px;
+
+  display: flex;
+
+  gap: 8px;
+}
+
+#aiInput {
+  flex: 1;
+
+  padding: 10px;
+
+  border: 1px solid #dde3e9;
+
+  border-radius: 7px;
+
+  outline: none;
+}
+
+#aiInputArea button {
+  margin: 0;
+
+  background: #173b63;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 7px;
+
+  padding: 10px 14px;
+
+  cursor: pointer;
+}
+
+@media(max-width:600px) {
+
+  #aiChatWindow {
+
+    width: calc(100% - 30px);
+
+    right: 15px;
+
+    bottom: 85px;
+
+    height: 70vh;
+
+  }
+
+}
+
+</style>
+
+<script>
+
+function toggleChat() {
+
+  const chat = document.getElementById("aiChatWindow");
+
+  if(chat.style.display === "flex") {
+
+    chat.style.display = "none";
+
+  } else {
+
+    chat.style.display = "flex";
+
+  }
+
+}
+
+
+async function sendMessage() {
+
+  const input = document.getElementById("aiInput");
+
+  const message = input.value.trim();
+
+  if(!message) return;
+
+
+  addMessage(message, "user-message");
+
+  input.value = "";
+
+
+  const thinking = document.createElement("div");
+
+  thinking.className = "bot-message";
+
+  thinking.innerText = "Thinking...";
+
+  thinking.id = "thinkingMessage";
+
+  document
+    .getElementById("aiMessages")
+    .appendChild(thinking);
+
+
+  try {
+
+    /*
+       We will connect this to the secure
+       BallenIsles AI backend next.
+    */
+
+    await new Promise(resolve =>
+      setTimeout(resolve, 700)
+    );
+
+
+    document
+      .getElementById("thinkingMessage")
+      .remove();
+
+
+    addMessage(
+      "The AI connection hasn't been activated yet. The chat interface is working, and the next step is connecting it securely to OpenAI.",
+      "bot-message"
+    );
+
+
+  } catch(error) {
+
+    document
+      .getElementById("thinkingMessage")
+      ?.remove();
+
+
+    addMessage(
+      "I'm sorry, I couldn't process your request.",
+      "bot-message"
+    );
+
+  }
+
+}
+
+
+function addMessage(text, className) {
+
+  const messages =
+    document.getElementById("aiMessages");
+
+
+  const message =
+    document.createElement("div");
+
+
+  message.className = className;
+
+  message.innerText = text;
+
+
+  messages.appendChild(message);
+
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+</script>
 </body>
 </html>
