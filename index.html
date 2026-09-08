@@ -3,250 +3,1333 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BallenIsles Operations Portal</title>
 
 <style>
+
 :root{
-  --navy:#0f2742;
-  --navy2:#173b63;
-  --gold:#c7a35a;
-  --bg:#f4f6f8;
-  --card:#ffffff;
-  --text:#1c2733;
-  --muted:#6f7a86;
-  --border:#dde3e9;
-  --good:#247a51;
+    --navy:#0d2744;
+    --navy-dark:#081d33;
+    --blue:#173f69;
+    --gold:#c99a2e;
+    --gold-light:#f6f0e3;
+    --white:#ffffff;
+    --background:#f5f7fa;
+    --text:#12243d;
+    --muted:#708095;
+    --border:#e0e6ed;
+    --green:#27885a;
+    --red:#c94c4c;
 }
 
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+    margin:0;
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:var(--background);
+    color:var(--text);
 }
 
-header{
-  height:74px;
-  background:var(--navy);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
+button,input,textarea{
+    font:inherit;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+
+.app{
+    display:grid;
+    grid-template-columns:245px 1fr;
+    min-height:100vh;
+}
+
+
+/* ===============================
+   SIDEBAR
+================================ */
+
+.sidebar{
+    background:linear-gradient(
+        180deg,
+        var(--navy),
+        var(--navy-dark)
+    );
+
+    color:white;
+
+    height:100vh;
+
+    position:sticky;
+    top:0;
+
+    padding:24px 14px;
+
+    display:flex;
+    flex-direction:column;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
+    text-align:center;
+
+    padding-bottom:25px;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.1);
+
+    margin-bottom:18px;
 }
 
 .logo{
-  width:38px;
-  height:38px;
-  border:2px solid var(--gold);
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  font-weight:bold;
-  color:var(--gold);
+    width:70px;
+    height:70px;
+
+    border:
+    2px solid var(--gold);
+
+    border-radius:50%;
+
+    margin:auto;
+
+    display:grid;
+    place-items:center;
+
+    font-family:Georgia,serif;
+
+    font-size:22px;
+
+    margin-bottom:12px;
 }
 
-.brand h1{
-  font-size:20px;
-  margin:0;
+.brand-title{
+    font-family:Georgia,serif;
+    font-size:21px;
 }
 
-.brand small{
-  display:block;
-  color:#c9d4df;
+.brand-subtitle{
+    margin-top:5px;
+
+    font-size:10px;
+
+    letter-spacing:2.5px;
+
+    color:#cbd6e2;
 }
 
-.user{
-  font-size:14px;
-  color:#dfe7ee;
-}
 
-.shell{
-  display:grid;
-  grid-template-columns:230px 1fr;
-  min-height:calc(100vh - 74px);
-}
+/* NAVIGATION */
 
-aside{
-  background:white;
-  border-right:1px solid var(--border);
-  padding:22px 14px;
+.navigation{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
 }
 
 .nav-item{
-  padding:12px 14px;
-  border-radius:8px;
-  margin-bottom:7px;
-  cursor:pointer;
-  color:#324252;
-  font-weight:600;
+
+    border:0;
+
+    background:transparent;
+
+    color:#d6e0ea;
+
+    padding:12px 14px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+    font-weight:600;
+
+    transition:.2s;
 }
 
-.nav-item:hover,
+.nav-item:hover{
+
+    background:
+    rgba(255,255,255,.06);
+
+    color:white;
+}
+
 .nav-item.active{
-  background:#eef3f8;
-  color:var(--navy2);
+
+    background:
+    rgba(255,255,255,.1);
+
+    box-shadow:
+    inset 4px 0 var(--gold);
+
+    color:white;
 }
 
-main{
-  padding:28px;
+.nav-icon{
+
+    width:20px;
+
+    color:var(--gold);
+
+    text-align:center;
+}
+
+.sidebar-bottom{
+
+    margin-top:auto;
+
+    padding:18px 12px;
+
+    border-top:
+    1px solid rgba(255,255,255,.1);
+}
+
+.sidebar-bottom strong{
+
+    font-family:Georgia,serif;
+
+    font-size:14px;
+}
+
+.sidebar-bottom div{
+
+    margin-top:7px;
+
+    font-size:10px;
+
+    color:#aebdca;
+}
+
+
+/* ===============================
+   MAIN AREA
+================================ */
+
+.main{
+    min-width:0;
+}
+
+
+/* TOP BAR */
+
+.topbar{
+
+    height:76px;
+
+    background:white;
+
+    border-bottom:
+    1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 26px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:20;
+}
+
+
+/* SEARCH */
+
+.search{
+
+    width:min(570px,60%);
+
+    position:relative;
+}
+
+.search input{
+
+    width:100%;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:
+    13px 15px 13px 42px;
+
+    outline:none;
+}
+
+.search input:focus{
+
+    border-color:#aab8c6;
+
+    box-shadow:
+    0 0 0 3px rgba(23,63,105,.05);
+}
+
+.search-icon{
+
+    position:absolute;
+
+    left:15px;
+
+    top:12px;
+
+    color:#75879a;
+}
+
+
+/* USER */
+
+.user{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+}
+
+.avatar{
+
+    width:42px;
+
+    height:42px;
+
+    background:var(--navy);
+
+    color:white;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    font-family:Georgia,serif;
+}
+
+.user strong{
+
+    display:block;
+
+    font-size:14px;
+}
+
+.user span{
+
+    font-size:11px;
+
+    color:var(--muted);
+}
+
+
+/* ===============================
+   CONTENT
+================================ */
+
+.content{
+    padding:26px;
 }
 
 .page{
-  display:none;
+    display:none;
 }
 
 .page.active{
-  display:block;
+    display:block;
 }
 
-h2{
-  margin:0;
-  font-size:26px;
+
+/* ===============================
+   HERO
+================================ */
+
+.hero{
+
+    min-height:185px;
+
+    background:
+    linear-gradient(
+        120deg,
+        white 0%,
+        white 55%,
+        #eef4f8 100%
+    );
+
+    border:
+    1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:28px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 8px 30px rgba(17,35,61,.05);
 }
 
-.muted{
-  color:var(--muted);
-  font-size:13px;
+.hero:after{
+
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+
+    height:300px;
+
+    right:-100px;
+
+    top:-60px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(201,154,46,.20),
+        rgba(23,63,105,.08),
+        transparent 68%
+    );
 }
 
-.searchbar{
-  position:relative;
-  max-width:720px;
-  margin-top:20px;
+.hero-label{
+
+    color:var(--gold);
+
+    letter-spacing:5px;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
 }
 
-.searchbar input{
-  width:100%;
-  padding:14px 16px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  font-size:15px;
+.hero h1{
+
+    font-family:Georgia,serif;
+
+    font-size:44px;
+
+    margin:0 0 9px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-top:22px;
+.hero p{
+
+    margin:0;
+
+    color:#57708b;
+
+    font-family:Georgia,serif;
+
+    font-size:19px;
 }
 
-.card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:18px;
+.date{
+
+    position:absolute;
+
+    right:25px;
+
+    top:20px;
+
+    font-size:12px;
+
+    color:#64778b;
+
+    z-index:2;
 }
 
-.metric .value{
-  font-size:30px;
-  font-weight:700;
-  color:var(--navy);
+
+/* ===============================
+   METRICS
+================================ */
+
+.metrics{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:16px;
+
+    margin-top:18px;
 }
 
-.metric .label{
-  margin-top:6px;
-  color:var(--muted);
+.metric{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:13px;
+
+    padding:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
 }
 
-.section-title{
-  font-size:17px;
-  margin:26px 0 12px;
+.metric-icon{
+
+    width:46px;
+
+    height:46px;
+
+    background:var(--gold-light);
+
+    color:var(--gold);
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:21px;
 }
 
-.results{
-  margin-top:14px;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
+.metric-number{
+
+    font-family:Georgia,serif;
+
+    font-size:28px;
+
+    font-weight:bold;
 }
 
-.result{
-  padding:14px 16px;
-  border-bottom:1px solid var(--border);
-  cursor:pointer;
+.metric-name{
+
+    color:#64788d;
+
+    font-size:12px;
+
+    margin-top:4px;
 }
 
-.result:hover{
-  background:#f7f9fb;
+.trend{
+
+    color:var(--green);
+
+    font-size:11px;
+
+    margin-top:7px;
 }
 
-.result-title{
-  font-weight:700;
-  color:var(--navy2);
+.trend.red{
+    color:var(--red);
 }
 
-.activity{
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
+
+/* ===============================
+   PANELS
+================================ */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    minmax(0,1.7fr)
+    minmax(320px,.85fr);
+
+    gap:18px;
+
+    margin-top:18px;
 }
 
-.badge{
-  display:inline-block;
-  padding:5px 8px;
-  border-radius:20px;
-  background:#e8f4ee;
-  color:var(--good);
-  font-size:12px;
-  font-weight:bold;
+.panel{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 4px 18px rgba(17,35,61,.03);
 }
+
+.panel-header{
+
+    padding:17px 18px;
+
+    border-bottom:
+    1px solid #edf1f5;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+.panel-header h3{
+
+    margin:0;
+
+    font-family:Georgia,serif;
+
+    font-size:19px;
+}
+
+
+/* ===============================
+   TABLE
+================================ */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+th{
+
+    text-align:left;
+
+    font-size:10px;
+
+    color:#8391a0;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    padding:12px 15px;
+
+    border-bottom:
+    1px solid #edf1f5;
+}
+
+td{
+
+    padding:13px 15px;
+
+    border-bottom:
+    1px solid #edf1f5;
+
+    font-size:12px;
+
+    color:#3c536d;
+}
+
+tbody tr:hover{
+
+    background:#fafbfd;
+}
+
+.gold{
+    color:var(--gold);
+}
+
+
+/* ===============================
+   AI ASSISTANT
+================================ */
+
+.ai-panel{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.ai-intro{
+
+    margin:14px;
+
+    padding:13px;
+
+    background:#f7f9fb;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    color:#445b74;
+
+    line-height:1.5;
+}
+
+.suggestion{
+
+    margin:
+    0 14px 8px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:8px;
+
+    background:white;
+
+    padding:10px;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    color:#314b66;
+}
+
+.suggestion:hover{
+
+    background:#fafbfd;
+
+    border-color:#bac5d0;
+}
+
+.chat{
+
+    padding:5px 14px;
+
+    max-height:230px;
+
+    overflow:auto;
+}
+
+.message{
+
+    padding:10px 11px;
+
+    border-radius:9px;
+
+    margin-bottom:8px;
+
+    font-size:12px;
+
+    line-height:1.45;
+
+    max-width:88%;
+}
+
+.message.user-message{
+
+    margin-left:auto;
+
+    background:var(--navy);
+
+    color:white;
+}
+
+.message.ai-message{
+
+    background:#f0f4f7;
+
+    color:#334e69;
+}
+
+.ai-input{
+
+    padding:13px 14px;
+
+    display:flex;
+
+    gap:7px;
+
+    margin-top:auto;
+}
+
+.ai-input input{
+
+    flex:1;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:8px;
+
+    padding:10px;
+
+    outline:none;
+}
+
+.ai-input button{
+
+    width:43px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:var(--navy);
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.ai-disclaimer{
+
+    font-size:9px;
+
+    text-align:center;
+
+    color:#98a4b1;
+
+    padding-bottom:12px;
+}
+
+
+/* ===============================
+   BOTTOM DASHBOARD
+================================ */
+
+.bottom-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1.3fr .8fr;
+
+    gap:18px;
+
+    margin-top:18px;
+}
+
+.quick-actions{
+
+    padding:15px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:10px;
+}
+
+.action{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:9px;
+
+    padding:15px 12px;
+
+    cursor:pointer;
+
+    text-align:left;
+}
+
+.action:hover{
+
+    box-shadow:
+    0 6px 18px rgba(17,35,61,.06);
+
+    transform:
+    translateY(-1px);
+}
+
+.action-icon{
+
+    color:var(--gold);
+
+    font-size:20px;
+
+    margin-bottom:10px;
+}
+
+.action strong{
+
+    display:block;
+
+    font-size:11px;
+}
+
+.action span{
+
+    display:block;
+
+    font-size:9px;
+
+    color:#8b99a7;
+
+    margin-top:4px;
+}
+
+
+/* RESOURCES */
+
+.resources{
+    padding:6px 15px 12px;
+}
+
+.resource{
+
+    padding:12px 0;
+
+    border-bottom:
+    1px solid #edf1f5;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    font-size:12px;
+
+    color:#38516b;
+
+    cursor:pointer;
+}
+
+.resource:last-child{
+    border-bottom:0;
+}
+
+
+/* ===============================
+   OTHER PAGES
+================================ */
+
+.page-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    margin-bottom:18px;
+}
+
+.page-title h2{
+
+    margin:0;
+
+    font-family:Georgia,serif;
+
+    font-size:34px;
+}
+
+.page-title p{
+
+    margin:5px 0 0;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.primary{
+
+    background:var(--navy);
+
+    color:white;
+
+    border:0;
+
+    border-radius:8px;
+
+    padding:11px 14px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+
+/* DIRECTORY */
+
+.directory{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+.directory-search{
+
+    padding:14px;
+
+    border-bottom:
+    1px solid var(--border);
+}
+
+.directory-search input{
+
+    width:100%;
+
+    padding:11px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:8px;
+
+    outline:none;
+}
+
+.clickable{
+    cursor:pointer;
+}
+
+
+/* STATUS */
+
+.status{
+
+    display:inline-block;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    background:#e9f5ee;
+
+    color:#2c8055;
+
+    font-size:10px;
+
+    font-weight:bold;
+}
+
+.status.pending{
+
+    background:#fff4dc;
+
+    color:#93650e;
+}
+
+.status.overdue{
+
+    background:#fceaea;
+
+    color:#b44444;
+}
+
+
+/* ===============================
+   PROPERTY PROFILE
+================================ */
 
 .back{
-  cursor:pointer;
-  color:var(--navy2);
-  font-weight:bold;
-  margin-bottom:16px;
-  display:inline-block;
+
+    color:#174b7d;
+
+    font-weight:bold;
+
+    font-size:12px;
+
+    cursor:pointer;
+
+    margin-bottom:14px;
+
+    display:inline-block;
 }
 
-.info{
-  margin-top:10px;
-  padding:12px;
-  background:#f8fafc;
-  border:1px solid var(--border);
-  border-radius:8px;
+.profile-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:18px;
 }
 
-textarea{
-  width:100%;
-  height:90px;
-  padding:10px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  margin-top:10px;
+.profile-header h2{
+
+    margin:0;
+
+    font-family:Georgia,serif;
+
+    font-size:35px;
 }
 
-button{
-  background:var(--navy2);
-  color:white;
-  border:0;
-  padding:10px 15px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:8px;
+.profile-header p{
+
+    color:var(--muted);
+
+    margin-top:5px;
 }
 
-@media(max-width:800px){
-  .shell{grid-template-columns:1fr}
-  aside{display:none}
-  .grid{grid-template-columns:1fr 1fr}
+.profile-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1.1fr .9fr;
+
+    gap:18px;
 }
+
+.info-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:11px;
+
+    padding:15px;
+}
+
+.info-box{
+
+    padding:12px;
+
+    background:#f8fafc;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:8px;
+}
+
+.info-box label{
+
+    display:block;
+
+    color:#8795a5;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    margin-bottom:5px;
+}
+
+.person,
+.note{
+
+    padding:13px 15px;
+
+    border-top:
+    1px solid #edf1f5;
+}
+
+.person strong{
+    display:block;
+}
+
+.person span,
+.note span{
+
+    color:#7d8b99;
+
+    font-size:10px;
+}
+
+.notes-form{
+
+    padding:14px;
+
+    border-top:
+    1px solid var(--border);
+}
+
+.notes-form textarea{
+
+    width:100%;
+
+    min-height:85px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:8px;
+
+    padding:10px;
+
+    resize:vertical;
+}
+
+
+/* ===============================
+   SEARCH RESULTS
+================================ */
+
+.search-results{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    top:52px;
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:9px;
+
+    box-shadow:
+    0 12px 30px rgba(17,35,61,.12);
+
+    display:none;
+
+    z-index:100;
+}
+
+.search-result{
+
+    padding:11px 13px;
+
+    border-bottom:
+    1px solid #edf1f5;
+
+    cursor:pointer;
+}
+
+.search-result:hover{
+
+    background:#f8fafc;
+}
+
+.search-result strong{
+
+    display:block;
+
+    font-size:12px;
+}
+
+.search-result span{
+
+    font-size:10px;
+
+    color:var(--muted);
+}
+
+
+/* ===============================
+   PLACEHOLDER PAGES
+================================ */
+
+.placeholder{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:13px;
+
+    padding:60px;
+
+    text-align:center;
+
+    color:#748497;
+}
+
+.placeholder h2{
+
+    font-family:Georgia,serif;
+
+    color:var(--text);
+
+    margin-top:0;
+}
+
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media(max-width:1100px){
+
+.metrics{
+grid-template-columns:1fr 1fr;
+}
+
+.dashboard-grid,
+.bottom-grid,
+.profile-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:750px){
+
+.app{
+grid-template-columns:75px 1fr;
+}
+
+.brand-title,
+.brand-subtitle,
+.nav-item .label,
+.sidebar-bottom{
+display:none;
+}
+
+.logo{
+width:43px;
+height:43px;
+font-size:14px;
+}
+
+.nav-item{
+justify-content:center;
+}
+
+.content{
+padding:16px;
+}
+
+.hero h1{
+font-size:32px;
+}
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<header>
+<div class="app">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
 
 <div class="brand">
 
@@ -254,114 +1337,699 @@ button{
 BI
 </div>
 
+<div class="brand-title">
+BallenIsles
+</div>
+
+<div class="brand-subtitle">
+OPERATIONS PORTAL
+</div>
+
+</div>
+
+
+<div class="navigation">
+
+<button class="nav-item active" data-page="dashboard">
+<span class="nav-icon">⌂</span>
+<span class="label">Dashboard</span>
+</button>
+
+<button class="nav-item" data-page="properties">
+<span class="nav-icon">⌂</span>
+<span class="label">Properties</span>
+</button>
+
+<button class="nav-item" data-page="residents">
+<span class="nav-icon">♙</span>
+<span class="label">Residents</span>
+</button>
+
+<button class="nav-item" data-page="workorders">
+<span class="nav-icon">✓</span>
+<span class="label">Work Orders</span>
+</button>
+
+<button class="nav-item" data-page="modifications">
+<span class="nav-icon">▤</span>
+<span class="label">Modifications</span>
+</button>
+
+<button class="nav-item" data-page="vendors">
+<span class="nav-icon">▣</span>
+<span class="label">Vendors</span>
+</button>
+
+<button class="nav-item" data-page="security">
+<span class="nav-icon">◇</span>
+<span class="label">Security</span>
+</button>
+
+<button class="nav-item" data-page="reports">
+<span class="nav-icon">▥</span>
+<span class="label">Reports</span>
+</button>
+
+<button class="nav-item" data-page="community">
+<span class="nav-icon">□</span>
+<span class="label">Community Info</span>
+</button>
+
+<button class="nav-item" data-page="assistant">
+<span class="nav-icon">✦</span>
+<span class="label">AI Assistant</span>
+</button>
+
+</div>
+
+
+<div class="sidebar-bottom">
+
+<strong>
+BallenIsles<br>
+Community Association
+</strong>
+
 <div>
-<h1>BallenIsles Operations Portal</h1>
-<small>Property & Resident Management</small>
+People · Property · Community
 </div>
 
-</div>
-
-<div class="user">
-Signed in as: Demo User
-</div>
-
-</header>
-
-
-<div class="shell">
-
-<aside>
-
-<div class="nav-item active" onclick="showPage('dashboard')">
-Dashboard
-</div>
-
-<div class="nav-item" onclick="showPage('properties')">
-Properties
-</div>
-
-<div class="nav-item" onclick="showPage('residents')">
-Residents
-</div>
-
-<div class="nav-item" onclick="showPage('communities')">
-Communities
-</div>
-
-<div class="nav-item" onclick="showPage('activity')">
-Activity
 </div>
 
 </aside>
 
 
-<main>
+
+<!-- MAIN -->
+
+<main class="main">
 
 
-<section id="dashboard" class="page active">
+<header class="topbar">
 
-<h2>Operations Dashboard</h2>
+<div class="search">
 
-<div class="muted">
-BallenIsles property and resident management
-</div>
-
-<div class="searchbar">
+<span class="search-icon">
+⌕
+</span>
 
 <input
 id="globalSearch"
-placeholder="🔎 Search resident, property or community..."
-oninput="searchPortal()">
+placeholder="Search properties, residents, work orders, or anything..."
+autocomplete="off">
 
-</div>
-
-<div id="searchResults"></div>
-
-
-<div class="grid">
-
-<div class="card metric">
-<div class="value">1,600</div>
-<div class="label">Properties</div>
-</div>
-
-<div class="card metric">
-<div class="value">2,420</div>
-<div class="label">Residents</div>
-</div>
-
-<div class="card metric">
-<div class="value">33</div>
-<div class="label">Communities</div>
-</div>
-
-<div class="card metric">
-<div class="value">14</div>
-<div class="label">Records Updated Today</div>
+<div
+id="searchResults"
+class="search-results">
 </div>
 
 </div>
 
 
-<div class="section-title">
-<strong>Recent Activity</strong>
+<div class="user">
+
+<div class="avatar">
+BP
 </div>
 
-<div class="card">
+<div>
 
-<div class="activity">
-<strong>227 Coral Cay</strong>
-<div class="muted">Property note added — September 8, 2026</div>
+<strong>
+Bryan P.
+</strong>
+
+<span>
+Resident Services
+</span>
+
 </div>
 
-<div class="activity">
-<strong>418 Bermuda Bay</strong>
-<div class="muted">Resident information updated — September 7, 2026</div>
 </div>
 
-<div class="activity">
-<strong>91 Sunset Bay</strong>
-<div class="muted">Occupancy confirmed — September 6, 2026</div>
+</header>
+
+
+
+<div class="content">
+
+
+<!-- DASHBOARD -->
+
+<section
+id="dashboard"
+class="page active">
+
+
+<div class="hero">
+
+<div class="date">
+Tuesday, September 8, 2026
+</div>
+
+<div class="hero-label">
+WELCOME TO THE
+</div>
+
+<h1>
+BallenIsles Operations Portal
+</h1>
+
+<p>
+Supporting a beautiful community. Together.
+</p>
+
+</div>
+
+
+
+<div class="metrics">
+
+
+<div class="metric">
+
+<div class="metric-icon">
+⌂
+</div>
+
+<div>
+
+<div class="metric-number">
+1,600
+</div>
+
+<div class="metric-name">
+Properties
+</div>
+
+<div class="trend">
+↑ 2 this month
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="metric">
+
+<div class="metric-icon">
+♙
+</div>
+
+<div>
+
+<div class="metric-number">
+2,420
+</div>
+
+<div class="metric-name">
+Residents
+</div>
+
+<div class="trend">
+↑ 6 this month
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="metric">
+
+<div class="metric-icon">
+✓
+</div>
+
+<div>
+
+<div class="metric-number">
+14
+</div>
+
+<div class="metric-name">
+Open Work Orders
+</div>
+
+<div class="trend red">
+↑ 3 overdue
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="metric">
+
+<div class="metric-icon">
+▤
+</div>
+
+<div>
+
+<div class="metric-number">
+8
+</div>
+
+<div class="metric-name">
+Modification Applications
+</div>
+
+<div class="trend">
+2 in review
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="dashboard-grid">
+
+
+<!-- RECENT ACTIVITY -->
+
+<div class="panel">
+
+<div class="panel-header">
+
+<h3>
+Recent Activity
+</h3>
+
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Time
+</th>
+
+<th>
+Type
+</th>
+
+<th>
+Details
+</th>
+
+<th>
+User
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+10:24 AM
+</td>
+
+<td>
+<span class="gold">✓</span>
+Work Order
+</td>
+
+<td>
+Irrigation issue reported at 227 Coral Cay
+</td>
+
+<td>
+J. Smith
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+9:17 AM
+</td>
+
+<td>
+<span class="gold">▤</span>
+Modification
+</td>
+
+<td>
+New window application submitted
+</td>
+
+<td>
+M. Davis
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+8:42 AM
+</td>
+
+<td>
+<span class="gold">⌂</span>
+Property
+</td>
+
+<td>
+Photos updated for 418 Bermuda Bay
+</td>
+
+<td>
+B. Piverotto
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Yesterday
+</td>
+
+<td>
+<span class="gold">♙</span>
+Resident
+</td>
+
+<td>
+Resident information updated
+</td>
+
+<td>
+A. Lopez
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+Yesterday
+</td>
+
+<td>
+<span class="gold">✓</span>
+Work Order
+</td>
+
+<td>
+Completed — Landscape lighting repair
+</td>
+
+<td>
+R. Thomas
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- AI -->
+
+<div class="panel ai-panel">
+
+<div class="panel-header">
+
+<h3>
+✦ Ask BallenIsles AI
+</h3>
+
+</div>
+
+
+<div class="ai-intro">
+
+I'm your internal assistant.
+
+I can help you find property information,
+residents, work orders, modification
+information, vendor contacts and more.
+
+</div>
+
+
+<button
+class="suggestion"
+onclick="presetAI('Show overdue work orders in Coral Cay')">
+
+Show overdue work orders in Coral Cay →
+
+</button>
+
+
+<button
+class="suggestion"
+onclick="presetAI('Find owner information for 227 Coral Cay')">
+
+Find owner information for 227 Coral Cay →
+
+</button>
+
+
+<button
+class="suggestion"
+onclick="presetAI('What are the requirements for shutters?')">
+
+What are the requirements for shutters? →
+
+</button>
+
+
+<div
+id="chat"
+class="chat">
+</div>
+
+
+<div class="ai-input">
+
+<input
+id="aiInput"
+placeholder="Ask a question..."
+onkeydown="
+if(event.key==='Enter'){
+sendAI();
+}
+">
+
+<button onclick="sendAI()">
+➤
+</button>
+
+</div>
+
+
+<div class="ai-disclaimer">
+
+Prototype assistant — secure OpenAI connection can be added next.
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- BOTTOM -->
+
+<div class="bottom-grid">
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<h3>
+Quick Actions
+</h3>
+
+</div>
+
+
+<div class="quick-actions">
+
+
+<button
+class="action"
+onclick="showPage('workorders')">
+
+<div class="action-icon">
+▤
+</div>
+
+<strong>
+New Work Order
+</strong>
+
+<span>
+Create and assign
+</span>
+
+</button>
+
+
+
+<button
+class="action"
+onclick="showPage('modifications')">
+
+<div class="action-icon">
+＋
+</div>
+
+<strong>
+New Modification
+</strong>
+
+<span>
+Create application
+</span>
+
+</button>
+
+
+
+<button
+class="action"
+onclick="showPage('residents')">
+
+<div class="action-icon">
+♙
+</div>
+
+<strong>
+Search Resident
+</strong>
+
+<span>
+Find resident info
+</span>
+
+</button>
+
+
+
+<button
+class="action"
+onclick="showPage('properties')">
+
+<div class="action-icon">
+⌂
+</div>
+
+<strong>
+Search Property
+</strong>
+
+<span>
+View property details
+</span>
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<h3>
+Community Resources
+</h3>
+
+</div>
+
+
+<div class="resources">
+
+<div class="resource">
+
+<span>
+📄 Governing Documents
+</span>
+
+<span>
+›
+</span>
+
+</div>
+
+
+<div class="resource">
+
+<span>
+♙ Vendor Contacts
+</span>
+
+<span>
+›
+</span>
+
+</div>
+
+
+<div class="resource">
+
+<span>
+◇ Security Procedures
+</span>
+
+<span>
+›
+</span>
+
+</div>
+
+
+<div class="resource">
+
+<span>
+ⓘ Community Maps
+</span>
+
+<span>
+›
+</span>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -370,86 +2038,79 @@ oninput="searchPortal()">
 
 
 
-<section id="properties" class="page">
+<!-- PROPERTIES -->
 
-<h2>Properties</h2>
+<section
+id="properties"
+class="page">
 
-<div class="muted">
-BallenIsles property directory
-</div>
+<div class="page-title">
 
-<div id="propertyList"></div>
+<div>
 
-</section>
+<h2>
+Properties
+</h2>
 
-
-
-<section id="residents" class="page">
-
-<h2>Residents</h2>
-
-<div class="muted">
-Resident directory
-</div>
-
-<div id="residentList"></div>
-
-</section>
-
-
-
-<section id="communities" class="page">
-
-<h2>Communities</h2>
-
-<div class="grid">
-
-<div class="card">
-<strong>Coral Cay</strong>
-<p>58 Properties</p>
-</div>
-
-<div class="card">
-<strong>Bermuda Bay</strong>
-<p>74 Properties</p>
-</div>
-
-<div class="card">
-<strong>Sunset Bay</strong>
-<p>63 Properties</p>
-</div>
-
-<div class="card">
-<strong>Grand Palm</strong>
-<p>51 Properties</p>
-</div>
+<p>
+Search and review BallenIsles property records.
+</p>
 
 </div>
 
-</section>
+<button class="primary">
++ Add Property
+</button>
 
-
-
-<section id="activity" class="page">
-
-<h2>Activity History</h2>
-
-<div class="card" style="margin-top:20px">
-
-<div class="activity">
-<strong>227 Coral Cay</strong>
-<div class="muted">Property note added</div>
 </div>
 
-<div class="activity">
-<strong>418 Bermuda Bay</strong>
-<div class="muted">Resident information updated</div>
+
+<div class="directory">
+
+<div class="directory-search">
+
+<input
+id="propertySearch"
+placeholder="Search address, community, or resident...">
+
 </div>
 
-<div class="activity">
-<strong>91 Sunset Bay</strong>
-<div class="muted">Occupancy status confirmed</div>
-</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Address
+</th>
+
+<th>
+Community
+</th>
+
+<th>
+Primary Resident
+</th>
+
+<th>
+Occupancy
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="propertyTable">
+</tbody>
+
+</table>
 
 </div>
 
@@ -457,613 +2118,1632 @@ Resident directory
 
 
 
-<section id="propertyProfile" class="page">
+<!-- RESIDENTS -->
 
-<div class="back" onclick="showPage('properties')">
+<section
+id="residents"
+class="page">
+
+<div class="page-title">
+
+<div>
+
+<h2>
+Residents
+</h2>
+
+<p>
+Resident directory and contact information.
+</p>
+
+</div>
+
+<button class="primary">
++ Add Resident
+</button>
+
+</div>
+
+
+<div class="directory">
+
+<div class="directory-search">
+
+<input
+id="residentSearch"
+placeholder="Search resident, email, phone or address...">
+
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Resident
+</th>
+
+<th>
+Property
+</th>
+
+<th>
+Role
+</th>
+
+<th>
+Email
+</th>
+
+<th>
+Phone
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="residentTable">
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- WORK ORDERS -->
+
+<section
+id="workorders"
+class="page">
+
+<div class="page-title">
+
+<div>
+
+<h2>
+Work Orders
+</h2>
+
+<p>
+Track community service requests and vendor activity.
+</p>
+
+</div>
+
+<button class="primary">
++ New Work Order
+</button>
+
+</div>
+
+
+<div class="directory">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+ID
+</th>
+
+<th>
+Property
+</th>
+
+<th>
+Issue
+</th>
+
+<th>
+Assigned To
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+WO-1048
+</td>
+
+<td>
+227 Coral Cay
+</td>
+
+<td>
+Irrigation sensor repair
+</td>
+
+<td>
+Wetlands Irrigation
+</td>
+
+<td>
+<span class="status overdue">
+Overdue
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+WO-1049
+</td>
+
+<td>
+418 Bermuda Bay
+</td>
+
+<td>
+Landscape lighting
+</td>
+
+<td>
+Elegant Landscape
+</td>
+
+<td>
+<span class="status pending">
+In Progress
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+WO-1050
+</td>
+
+<td>
+91 Sunset Bay
+</td>
+
+<td>
+Gutter cleaning
+</td>
+
+<td>
+Pending Vendor
+</td>
+
+<td>
+<span class="status pending">
+Pending
+</span>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- MODIFICATIONS -->
+
+<section
+id="modifications"
+class="page">
+
+<div class="page-title">
+
+<div>
+
+<h2>
+Modifications
+</h2>
+
+<p>
+Architectural and homeowner modification applications.
+</p>
+
+</div>
+
+<button class="primary">
++ New Application
+</button>
+
+</div>
+
+
+<div class="directory">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+ID
+</th>
+
+<th>
+Property
+</th>
+
+<th>
+Type
+</th>
+
+<th>
+Submitted
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+MOD-286
+</td>
+
+<td>
+227 Coral Cay
+</td>
+
+<td>
+Landscaping
+</td>
+
+<td>
+Sep 7, 2026
+</td>
+
+<td>
+<span class="status pending">
+In Review
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+MOD-285
+</td>
+
+<td>
+418 Bermuda Bay
+</td>
+
+<td>
+Windows
+</td>
+
+<td>
+Sep 5, 2026
+</td>
+
+<td>
+<span class="status pending">
+Board Review
+</span>
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+MOD-284
+</td>
+
+<td>
+91 Sunset Bay
+</td>
+
+<td>
+Shutters
+</td>
+
+<td>
+Sep 3, 2026
+</td>
+
+<td>
+<span class="status">
+Approved
+</span>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- FUTURE MODULES -->
+
+<section
+id="vendors"
+class="page">
+
+<div class="placeholder">
+
+<h2>
+Vendor Management
+</h2>
+
+<p>
+Vendor contacts, proposals, assignments and performance tracking will live here.
+</p>
+
+</div>
+
+</section>
+
+
+
+<section
+id="security"
+class="page">
+
+<div class="placeholder">
+
+<h2>
+Security Operations
+</h2>
+
+<p>
+Camera systems, gates, infrastructure, incidents and security projects will live here.
+</p>
+
+</div>
+
+</section>
+
+
+
+<section
+id="reports"
+class="page">
+
+<div class="placeholder">
+
+<h2>
+Reports & Analytics
+</h2>
+
+<p>
+Operational dashboards, work-order metrics and reporting will live here.
+</p>
+
+</div>
+
+</section>
+
+
+
+<section
+id="community"
+class="page">
+
+<div class="placeholder">
+
+<h2>
+Community Information
+</h2>
+
+<p>
+Neighborhoods, maps, governing documents and community resources will live here.
+</p>
+
+</div>
+
+</section>
+
+
+
+<section
+id="assistant"
+class="page">
+
+<div class="page-title">
+
+<div>
+
+<h2>
+BallenIsles AI
+</h2>
+
+<p>
+Your intelligent operations assistant.
+</p>
+
+</div>
+
+</div>
+
+
+<div
+class="panel ai-panel"
+style="
+max-width:850px;
+min-height:500px;
+">
+
+
+<div class="ai-intro">
+
+Ask questions about properties,
+residents, work orders,
+modifications, vendors,
+security infrastructure and
+community information.
+
+</div>
+
+
+<div
+id="largeChat"
+class="chat"
+style="
+max-height:350px;
+">
+</div>
+
+
+<div class="ai-input">
+
+<input
+id="largeAIInput"
+placeholder="Ask BallenIsles AI..."
+onkeydown="
+if(event.key==='Enter'){
+sendLargeAI();
+}
+">
+
+<button onclick="sendLargeAI()">
+➤
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- PROPERTY PROFILE -->
+
+<section
+id="propertyProfile"
+class="page">
+
+<span
+class="back"
+onclick="showPage('properties')">
+
 ← Back to Properties
-</div>
 
-<div id="propertyContent"></div>
+</span>
+
+<div id="propertyProfileContent">
+</div>
 
 </section>
 
+
+</div>
 
 </main>
 
 </div>
 
 
+
 <script>
 
-const properties = [
+/* ===============================
+   SAMPLE DATA
+================================ */
+
+const properties=[
 
 {
 id:1,
 address:"227 Coral Cay",
 community:"Coral Cay",
-resident:"John Katz",
+occupancy:"Owner Occupied",
+status:"Active",
+
+residents:[
+
+{
+name:"John Katz",
+role:"Owner / Primary",
 email:"john.katz@example.com",
-phone:"(561) 555-0147",
-occupancy:"Owner Occupied"
+phone:"(561) 555-0147"
 },
+
+{
+name:"Jane Katz",
+role:"Owner",
+email:"jane.katz@example.com",
+phone:"(561) 555-0148"
+}
+
+],
+
+notes:[
+
+{
+date:"September 8, 2026",
+text:"Follow-up requested regarding landscaping and rear yard items.",
+author:"B. Piverotto"
+},
+
+{
+date:"August 26, 2026",
+text:"Property landscaping issue reviewed and documented.",
+author:"B. Piverotto"
+}
+
+]
+
+},
+
 
 {
 id:2,
 address:"418 Bermuda Bay",
 community:"Bermuda Bay",
-resident:"Michael Rosen",
-email:"michael.rosen@example.com",
-phone:"(561) 555-0210",
-occupancy:"Owner Occupied"
+occupancy:"Owner Occupied",
+status:"Active",
+
+residents:[
+
+{
+name:"Michael Rosen",
+role:"Owner / Primary",
+email:"m.rosen@example.com",
+phone:"(561) 555-0210"
+}
+
+],
+
+notes:[]
 },
+
 
 {
 id:3,
 address:"91 Sunset Bay",
 community:"Sunset Bay",
-resident:"Susan Miller",
+occupancy:"Seasonal",
+status:"Active",
+
+residents:[
+
+{
+name:"Susan Miller",
+role:"Owner / Primary",
 email:"susan.miller@example.com",
-phone:"(561) 555-0344",
-occupancy:"Seasonal"
+phone:"(561) 555-0344"
+}
+
+],
+
+notes:[]
 },
+
 
 {
 id:4,
 address:"152 Grand Palm",
 community:"Grand Palm",
-resident:"Robert Allen",
-email:"robert.allen@example.com",
-phone:"(561) 555-0441",
-occupancy:"Owner Occupied"
+occupancy:"Owner Occupied",
+status:"Active",
+
+residents:[
+
+{
+name:"Robert Allen",
+role:"Owner / Primary",
+email:"r.allen@example.com",
+phone:"(561) 555-0441"
+}
+
+],
+
+notes:[]
 }
 
 ];
 
 
-function showPage(page){
 
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active");
-});
+/* ===============================
+   NAVIGATION
+================================ */
 
-document.getElementById(page).classList.add("active");
+function showPage(id){
 
-}
+document
+.querySelectorAll(".page")
+.forEach(page=>{
 
-
-function renderProperties(){
-
-let html='<div class="results">';
-
-properties.forEach(p=>{
-
-html+=`
-
-<div class="result" onclick="openProperty(${p.id})">
-
-<div class="result-title">
-${p.address}
-</div>
-
-<div class="muted">
-${p.community} · ${p.resident}
-</div>
-
-</div>
-
-`;
+page.classList.remove("active");
 
 });
 
-html+='</div>';
 
-document.getElementById("propertyList").innerHTML=html;
+document
+.getElementById(id)
+.classList.add("active");
 
-}
 
+document
+.querySelectorAll(".nav-item")
+.forEach(button=>{
 
-function renderResidents(){
-
-let html='<div class="results">';
-
-properties.forEach(p=>{
-
-html+=`
-
-<div class="result" onclick="openProperty(${p.id})">
-
-<div class="result-title">
-${p.resident}
-</div>
-
-<div class="muted">
-${p.address} · ${p.email}
-</div>
-
-</div>
-
-`;
-
-});
-
-html+='</div>';
-
-document.getElementById("residentList").innerHTML=html;
-
-}
-
-
-function openProperty(id){
-
-const p=properties.find(x=>x.id===id);
-
-document.getElementById("propertyContent").innerHTML=`
-
-<h2>${p.address}</h2>
-
-<p class="muted">
-${p.community}
-</p>
-
-<span class="badge">
-Active Property
-</span>
-
-
-<div class="card" style="margin-top:20px">
-
-<h3>Property Information</h3>
-
-<div class="info">
-<strong>Community</strong><br>
-${p.community}
-</div>
-
-<div class="info">
-<strong>Occupancy</strong><br>
-${p.occupancy}
-</div>
-
-</div>
-
-
-<div class="card" style="margin-top:18px">
-
-<h3>Primary Resident</h3>
-
-<div class="info">
-<strong>${p.resident}</strong><br><br>
-
-Email: ${p.email}<br>
-
-Phone: ${p.phone}
-
-</div>
-
-</div>
-
-
-<div class="card" style="margin-top:18px">
-
-<h3>Internal Property Notes</h3>
-
-<div id="notes"></div>
-
-<textarea
-id="noteText"
-placeholder="Enter internal property note...">
-</textarea>
-
-<button onclick="addNote()">
-Add Note
-</button>
-
-</div>
-
-`;
-
-showPage("propertyProfile");
-
-}
-
-
-function addNote(){
-
-const note=document.getElementById("noteText").value;
-
-if(!note.trim()) return;
-
-const notes=document.getElementById("notes");
-
-notes.innerHTML+=`
-
-<div class="info">
-<strong>September 8, 2026</strong><br>
-${note}
-<br>
-<span class="muted">Added by Demo User</span>
-</div>
-
-`;
-
-document.getElementById("noteText").value="";
-
-}
-
-
-function searchPortal(){
-
-const q=document
-.getElementById("globalSearch")
-.value
-.toLowerCase();
-
-const box=document.getElementById("searchResults");
-
-if(!q){
-
-box.innerHTML="";
-return;
-
-}
-
-const results=properties.filter(p=>
-
-p.address.toLowerCase().includes(q) ||
-
-p.community.toLowerCase().includes(q) ||
-
-p.resident.toLowerCase().includes(q)
-
+button.classList.toggle(
+"active",
+button.dataset.page===id
 );
 
+});
 
-let html='<div class="results">';
 
-if(results.length===0){
-
-html+=`
-<div class="result">
-No records found
-</div>
-`;
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
-results.forEach(p=>{
 
-html+=`
+document
+.querySelectorAll(".nav-item")
+.forEach(button=>{
 
-<div class="result" onclick="openProperty(${p.id})">
+button.addEventListener(
+"click",
+()=>{
 
-<div class="result-title">
-${p.address}
-</div>
-
-<div class="muted">
-${p.resident} · ${p.community}
-</div>
-
-</div>
-
-`;
+showPage(
+button.dataset.page
+);
 
 });
 
-html+='</div>';
+});
 
-box.innerHTML=html;
+
+
+/* ===============================
+   PROPERTY DIRECTORY
+================================ */
+
+function renderProperties(filter=""){
+
+const query=
+filter.toLowerCase();
+
+
+const results=
+properties.filter(property=>{
+
+const residents=
+property.residents
+.map(r=>r.name)
+.join(" ");
+
+return [
+
+property.address,
+property.community,
+property.occupancy,
+residents
+
+]
+.join(" ")
+.toLowerCase()
+.includes(query);
+
+});
+
+
+document
+.getElementById("propertyTable")
+.innerHTML=
+
+results.map(property=>`
+
+<tr
+class="clickable"
+onclick="openProperty(${property.id})">
+
+<td>
+<strong>
+${property.address}
+</strong>
+</td>
+
+<td>
+${property.community}
+</td>
+
+<td>
+${property.residents[0]?.name || ""}
+</td>
+
+<td>
+${property.occupancy}
+</td>
+
+<td>
+
+<span class="status">
+${property.status}
+</span>
+
+</td>
+
+</tr>
+
+`).join("");
 
 }
 
 
 renderProperties();
 
+
+document
+.getElementById("propertySearch")
+.addEventListener(
+"input",
+event=>{
+
+renderProperties(
+event.target.value
+);
+
+});
+
+
+
+/* ===============================
+   RESIDENT DIRECTORY
+================================ */
+
+function getResidents(){
+
+return properties.flatMap(
+property=>
+
+property.residents.map(
+resident=>({
+
+...resident,
+
+address:
+property.address,
+
+propertyId:
+property.id
+
+})
+)
+
+);
+
+}
+
+
+function renderResidents(filter=""){
+
+const query=
+filter.toLowerCase();
+
+
+const residents=
+getResidents()
+.filter(resident=>
+
+[
+
+resident.name,
+resident.address,
+resident.email,
+resident.phone,
+resident.role
+
+]
+.join(" ")
+.toLowerCase()
+.includes(query)
+
+);
+
+
+document
+.getElementById("residentTable")
+.innerHTML=
+
+residents.map(resident=>`
+
+<tr
+class="clickable"
+onclick="openProperty(${resident.propertyId})">
+
+<td>
+<strong>
+${resident.name}
+</strong>
+</td>
+
+<td>
+${resident.address}
+</td>
+
+<td>
+${resident.role}
+</td>
+
+<td>
+${resident.email}
+</td>
+
+<td>
+${resident.phone}
+</td>
+
+</tr>
+
+`).join("");
+
+}
+
+
 renderResidents();
 
-</script>
 
-<!-- BallenIsles AI Assistant -->
-<div id="aiChatButton" onclick="toggleChat()">💬</div>
+document
+.getElementById("residentSearch")
+.addEventListener(
+"input",
+event=>{
 
-<div id="aiChatWindow">
-  <div id="aiChatHeader">
-    <div>
-      <strong>BallenIsles Assistant</strong>
-      <div class="chat-subtitle">Homeowner Assistance</div>
-    </div>
+renderResidents(
+event.target.value
+);
 
-    <span onclick="toggleChat()" style="cursor:pointer;">✕</span>
-  </div>
+});
 
-  <div id="aiMessages">
 
-    <div class="bot-message">
-      Hello! I'm the BallenIsles Homeowner Assistant.
-      How can I help you today?
-    </div>
 
-  </div>
+/* ===============================
+   PROPERTY PROFILE
+================================ */
 
-  <div id="aiInputArea">
+function openProperty(id){
 
-    <input
-      id="aiInput"
-      type="text"
-      placeholder="Ask a question..."
-      onkeydown="if(event.key === 'Enter') sendMessage()"
-    >
+const property=
+properties.find(
+property=>
+property.id===id
+);
 
-    <button onclick="sendMessage()">Send</button>
 
-  </div>
+const residents=
+
+property.residents.map(
+resident=>`
+
+<div class="person">
+
+<strong>
+${resident.name}
+</strong>
+
+<span>
+
+${resident.role}
+<br>
+
+${resident.email}
+<br>
+
+${resident.phone}
+
+</span>
+
 </div>
 
-<style>
+`
+).join("");
 
-#aiChatButton {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 58px;
-  height: 58px;
-  background: #173b63;
-  color: white;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 25px;
-  cursor: pointer;
-  box-shadow: 0 5px 18px rgba(0,0,0,.25);
-  z-index: 9999;
-}
 
-#aiChatButton:hover {
-  background: #0f2742;
-}
+const notes=
 
-#aiChatWindow {
-  position: fixed;
-  right: 25px;
-  bottom: 95px;
+property.notes.length
 
-  width: 370px;
-  height: 520px;
+?
 
-  background: white;
+property.notes.map(
+note=>`
 
-  border-radius: 14px;
+<div class="note">
 
-  box-shadow: 0 8px 30px rgba(0,0,0,.25);
+<strong>
+${note.date}
+</strong>
 
-  display: none;
-  flex-direction: column;
+<div style="margin:5px 0">
+${note.text}
+</div>
 
-  overflow: hidden;
+<span>
+Added by ${note.author}
+</span>
 
-  z-index: 9999;
-}
+</div>
 
-#aiChatHeader {
-  background: #0f2742;
-  color: white;
+`
+).join("")
 
-  padding: 16px;
+:
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+`
 
-.chat-subtitle {
-  font-size: 12px;
-  color: #c9d4df;
-  margin-top: 3px;
-}
+<div class="note">
 
-#aiMessages {
-  flex: 1;
+<span>
+No internal notes yet.
+</span>
 
-  padding: 15px;
+</div>
 
-  overflow-y: auto;
+`;
 
-  background: #f4f6f8;
-}
 
-.bot-message,
-.user-message {
-  padding: 11px 13px;
+document
+.getElementById(
+"propertyProfileContent"
+)
+.innerHTML=
 
-  margin-bottom: 10px;
+`
 
-  border-radius: 10px;
+<div class="profile-header">
 
-  max-width: 85%;
+<div>
 
-  line-height: 1.4;
+<h2>
+${property.address}
+</h2>
 
-  font-size: 14px;
-}
+<p>
 
-.bot-message {
-  background: white;
-  border: 1px solid #dde3e9;
-}
+${property.community}
+·
+${property.occupancy}
 
-.user-message {
-  background: #173b63;
+</p>
 
-  color: white;
+</div>
 
-  margin-left: auto;
-}
 
-#aiInputArea {
-  border-top: 1px solid #dde3e9;
+<span class="status">
 
-  padding: 10px;
+${property.status}
 
-  display: flex;
+</span>
 
-  gap: 8px;
-}
+</div>
 
-#aiInput {
-  flex: 1;
 
-  padding: 10px;
 
-  border: 1px solid #dde3e9;
+<div class="profile-grid">
 
-  border-radius: 7px;
 
-  outline: none;
-}
+<div class="panel">
 
-#aiInputArea button {
-  margin: 0;
 
-  background: #173b63;
+<div class="panel-header">
 
-  color: white;
+<h3>
+Property Overview
+</h3>
 
-  border: none;
+</div>
 
-  border-radius: 7px;
 
-  padding: 10px 14px;
+<div class="info-grid">
 
-  cursor: pointer;
-}
+<div class="info-box">
 
-@media(max-width:600px) {
+<label>
+Address
+</label>
 
-  #aiChatWindow {
+${property.address}
 
-    width: calc(100% - 30px);
+</div>
 
-    right: 15px;
 
-    bottom: 85px;
+<div class="info-box">
 
-    height: 70vh;
+<label>
+Community
+</label>
 
-  }
+${property.community}
 
-}
+</div>
 
-</style>
 
-<script>
+<div class="info-box">
 
-function toggleChat() {
+<label>
+Occupancy
+</label>
 
-  const chat = document.getElementById("aiChatWindow");
+${property.occupancy}
 
-  if(chat.style.display === "flex") {
+</div>
 
-    chat.style.display = "none";
 
-  } else {
+<div class="info-box">
 
-    chat.style.display = "flex";
+<label>
+Status
+</label>
 
-  }
+${property.status}
 
-}
+</div>
 
+</div>
 
-async function sendMessage() {
 
-  const input = document.getElementById("aiInput");
+<div class="panel-header">
 
-  const message = input.value.trim();
+<h3>
+Residents
+</h3>
 
-  if(!message) return;
+</div>
 
 
-  addMessage(message, "user-message");
+${residents}
 
-  input.value = "";
 
+</div>
 
-  const thinking = document.createElement("div");
 
-  thinking.className = "bot-message";
 
-  thinking.innerText = "Thinking...";
+<div class="panel">
 
-  thinking.id = "thinkingMessage";
 
-  document
-    .getElementById("aiMessages")
-    .appendChild(thinking);
+<div class="panel-header">
 
+<h3>
+Internal Notes
+</h3>
 
-  try {
+</div>
 
-    /*
-       We will connect this to the secure
-       BallenIsles AI backend next.
-    */
 
-    await new Promise(resolve =>
-      setTimeout(resolve, 700)
-    );
+${notes}
 
 
-    document
-      .getElementById("thinkingMessage")
-      .remove();
+<div class="notes-form">
 
+<textarea
+id="newNote"
+placeholder="Add an internal property note...">
+</textarea>
 
-    addMessage(
-      "The AI connection hasn't been activated yet. The chat interface is working, and the next step is connecting it securely to OpenAI.",
-      "bot-message"
-    );
+<button
+class="primary"
+onclick="addNote(${property.id})">
 
+Add Note
 
-  } catch(error) {
+</button>
 
-    document
-      .getElementById("thinkingMessage")
-      ?.remove();
+</div>
 
 
-    addMessage(
-      "I'm sorry, I couldn't process your request.",
-      "bot-message"
-    );
+</div>
 
-  }
+</div>
+
+`;
+
+
+showPage(
+"propertyProfile"
+);
 
 }
 
 
-function addMessage(text, className) {
 
-  const messages =
-    document.getElementById("aiMessages");
+function addNote(id){
 
-
-  const message =
-    document.createElement("div");
-
-
-  message.className = className;
-
-  message.innerText = text;
+const property=
+properties.find(
+property=>
+property.id===id
+);
 
 
-  messages.appendChild(message);
+const textarea=
+document.getElementById(
+"newNote"
+);
 
 
-  messages.scrollTop =
-    messages.scrollHeight;
+const text=
+textarea.value.trim();
+
+
+if(!text){
+return;
+}
+
+
+property.notes.unshift({
+
+date:
+"September 8, 2026",
+
+text:text,
+
+author:
+"B. Piverotto"
+
+});
+
+
+openProperty(id);
+
+}
+
+
+
+/* ===============================
+   GLOBAL SEARCH
+================================ */
+
+const globalSearch=
+document.getElementById(
+"globalSearch"
+);
+
+
+const searchResults=
+document.getElementById(
+"searchResults"
+);
+
+
+globalSearch.addEventListener(
+"input",
+()=>{
+
+const query=
+globalSearch.value
+.toLowerCase()
+.trim();
+
+
+if(!query){
+
+searchResults.style.display=
+"none";
+
+return;
+
+}
+
+
+const results=[];
+
+
+properties.forEach(property=>{
+
+
+if(
+
+property.address
+.toLowerCase()
+.includes(query)
+
+||
+
+property.community
+.toLowerCase()
+.includes(query)
+
+){
+
+results.push({
+
+title:
+property.address,
+
+subtitle:
+"Property · "+
+property.community,
+
+propertyId:
+property.id
+
+});
+
+}
+
+
+property.residents
+.forEach(resident=>{
+
+if(
+
+resident.name
+.toLowerCase()
+.includes(query)
+
+){
+
+results.push({
+
+title:
+resident.name,
+
+subtitle:
+"Resident · "+
+property.address,
+
+propertyId:
+property.id
+
+});
+
+}
+
+});
+
+
+});
+
+
+searchResults.innerHTML=
+
+results.length
+
+?
+
+results
+.slice(0,8)
+.map(result=>`
+
+<div
+class="search-result"
+onclick="
+openProperty(${result.propertyId});
+closeSearch();
+">
+
+<strong>
+${result.title}
+</strong>
+
+<span>
+${result.subtitle}
+</span>
+
+</div>
+
+`)
+.join("")
+
+:
+
+`
+
+<div class="search-result">
+
+<strong>
+No results found
+</strong>
+
+<span>
+Try another search.
+</span>
+
+</div>
+
+`;
+
+
+searchResults.style.display=
+"block";
+
+});
+
+
+function closeSearch(){
+
+searchResults.style.display=
+"none";
+
+globalSearch.value="";
+
+}
+
+
+
+/* ===============================
+   AI PROTOTYPE
+================================ */
+
+function getAIResponse(question){
+
+const query=
+question.toLowerCase();
+
+
+if(
+
+query.includes("overdue")
+
+&&
+
+query.includes("coral cay")
+
+){
+
+return "There is currently one overdue sample work order at 227 Coral Cay for an irrigation sensor repair.";
+
+}
+
+
+if(
+
+query.includes("227 coral cay")
+
+){
+
+return "227 Coral Cay is located in Coral Cay. The primary resident in this prototype is John Katz.";
+
+}
+
+
+if(
+query.includes("shutter")
+){
+
+return "The portal contains a sample shutter modification, but BallenIsles-specific requirements should be connected to approved governing documents before I provide policy guidance.";
+
+}
+
+
+if(
+query.includes("modification")
+){
+
+return "The prototype currently contains landscaping, window and shutter modification examples.";
+
+}
+
+
+return "The BallenIsles AI interface is working. The next step is connecting this chat to your secure OpenAI backend so I can provide real AI responses.";
+
+}
+
+
+
+function addMessage(
+container,
+text,
+type
+){
+
+const chat=
+document.getElementById(
+container
+);
+
+
+const message=
+document.createElement(
+"div"
+);
+
+
+message.className=
+"message "+type;
+
+
+message.textContent=
+text;
+
+
+chat.appendChild(
+message
+);
+
+
+chat.scrollTop=
+chat.scrollHeight;
+
+}
+
+
+
+function sendAI(){
+
+const input=
+document.getElementById(
+"aiInput"
+);
+
+
+const question=
+input.value.trim();
+
+
+if(!question){
+return;
+}
+
+
+addMessage(
+"chat",
+question,
+"user-message"
+);
+
+
+input.value="";
+
+
+setTimeout(
+()=>{
+
+addMessage(
+
+"chat",
+
+getAIResponse(
+question
+),
+
+"ai-message"
+
+);
+
+},
+250
+);
+
+}
+
+
+
+function presetAI(question){
+
+document
+.getElementById(
+"aiInput"
+)
+.value=
+question;
+
+
+sendAI();
+
+}
+
+
+
+function sendLargeAI(){
+
+const input=
+document.getElementById(
+"largeAIInput"
+);
+
+
+const question=
+input.value.trim();
+
+
+if(!question){
+return;
+}
+
+
+addMessage(
+"largeChat",
+question,
+"user-message"
+);
+
+
+input.value="";
+
+
+setTimeout(
+()=>{
+
+addMessage(
+
+"largeChat",
+
+getAIResponse(
+question
+),
+
+"ai-message"
+
+);
+
+},
+250
+);
 
 }
 
 </script>
+
+
 </body>
 </html>
